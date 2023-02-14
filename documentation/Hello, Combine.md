@@ -140,6 +140,60 @@ var myNotification = Notification.Name("com.elbin.customNotification")
 var myDefaultPublisher: NotificationCenter.Publisher = NotificationCenter.default.publisher(for: myNotification)
 ```
 
+이 때 AnyCancellable을 이용한다.
+
+### 🍞 AnyCancellable
+```Swift
+final class AnyCancellable
+```
+
+* 취소될 때 정의한 클로저 블록을 실행해주는 즉, 취소 해주는 객체를 의미함
+* 이 구현에서는 sink안에서 반환으로 쓰이면 내부적으로 cancel()을 적절하게 호출하도록 되어 있음
+* 즉, 해당 객체가 해제될 때 cancel()을 자동으로 호출하여 사용한다는 것
+
+계속 이어서 보자면
+
+```Swift
+var mySubscription: AnyCancellable?
+var mySubscriptionSet = Set<AnyCancellable>()
+var myNotification = Notification.Name("com.elbin.customNotification")
+var myDefaultPublisher = NotificationCenter.default.publisher(for: myNotification)
+
+
+mySubscription = myDefaultPublisher.sink(receiveCompletion: { completion in
+    switch completion {
+    case .finished:
+        print("완료")
+    case .failure(let error):
+        print("실패: error: \(error)")
+    }
+}, receiveValue: { receivedValue in
+    print("받은 값: \(receivedValue)")
+})
+
+NotificationCenter.default.post(Notification(name: myNotification))
+NotificationCenter.default.post(Notification(name: myNotification))
+NotificationCenter.default.post(Notification(name: myNotification))
+
+
+// 받은 값: name = com.elbin.customNotification, object = nil, userInfo = nil
+// 받은 값: name = com.elbin.customNotification, object = nil, userInfo = nil
+// 받은 값: name = com.elbin.customNotification, object = nil, userInfo = nil
+```
+
+Subscription 작업 구문을 작성하고 post를 해주니 성공적으로 값을 받았지만 ```NotificationCenter.default``` 같은 경우엔 메모리에 계속 남아있기 때문에 메모리에 해제 시켜줄 필요가 있다.
+
+```Swift
+var mySubscription: AnyCancellable?
+var mySubscriptionSet = Set<AnyCancellable>()
+```
+현재 mySubscription의 자료형이 ```AnyCancellable``` 이기 때문에 만약 원하는 처리를 다 했다면
+Set을 이용해 관리를 따로 변수에 담아 .store를 통해 관리한다.
+
+```Swift
+mySubscription?.store(in: &mySubscriptionSet)
+```
+
 ## 🥑 KVO를 이용한 Combine
 ```Swift
 import Combine
@@ -184,17 +238,3 @@ func sink(
 ```
 
 sink 호출 시 구현체를 보면 반환 타입은 AnyCancellable인 것을 확인할 수 있는데 실행 후 해당 타입으로 반환해주는 걸 확인할 수 있다.
-
-### AnyCancellable
-```Swift
-final class AnyCancellable
-```
-
-* 취소될 때 정의한 클로저 블록을 실행해주는 즉, 취소 해주는 객체를 의미함
-* 이 구현에서는 sink안에서 반환으로 쓰이면 내부적으로 cancel()을 적절하게 호출하도록 되어 있음
-* 즉, 해당 객체가 해제될 때 cancel()을 자동으로 호출하여 사용한다는 것
-
-### Store
-```Swift
-final func store(in set: inout Set<AnyCancellable>)
-```
