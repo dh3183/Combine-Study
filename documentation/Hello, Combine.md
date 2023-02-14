@@ -20,6 +20,10 @@ protocol Subscriber<Input, Failure> : CustomCombineIdentifierConvertible
 * Publisher는 이벤트를 내보낸다는 설정을 두고 Subscriber가 Publisher를 Subscribe를 하면 Subscriber가 이벤트를 받을 수 있음
 * Publisher의 연산자는 Just, Sequence, Future, Fail, Empty, Deferred, Record까지 해서 총 7가지가 있다.
 
+<img width="500" src="https://user-images.githubusercontent.com/83414134/218549802-3d383253-21a7-4a05-b629-882e40a5ca19.png">
+
+Publishers는 총 두 가지 ```typealias```를 선언했고 Publishers는 ```Output```과 ```Failure```를 내보낸다는것을 알 수 있다.
+
 ```Swift
 var myIntArrayPublisher: Publishers.Sequence<[Int], Never> = [1,2,3].publisher
 ```
@@ -136,6 +140,20 @@ var myNotification = Notification.Name("com.elbin.customNotification")
 var myDefaultPublisher: NotificationCenter.Publisher = NotificationCenter.default.publisher(for: myNotification)
 ```
 
+## 🥑 KVO를 이용한 Combine
+```Swift
+import Combine
+class MyFriend {
+    var name = "철수" {
+        didSet {
+            print("name - didSet(): ", name)
+        }
+    }
+}
+var myFriend = MyFriend()
+var myFriendSubscription: AnyCancellable = ["영수"].publisher.assign(to: \.name, on: myFriend)
+```
+
 ### Cancellable
 > A protocol indicating that an activity or action supports cancellation.
 
@@ -175,3 +193,8 @@ final class AnyCancellable
 * 취소될 때 정의한 클로저 블록을 실행해주는 즉, 취소 해주는 객체를 의미함
 * 이 구현에서는 sink안에서 반환으로 쓰이면 내부적으로 cancel()을 적절하게 호출하도록 되어 있음
 * 즉, 해당 객체가 해제될 때 cancel()을 자동으로 호출하여 사용한다는 것
+
+### Store
+```Swift
+final func store(in set: inout Set<AnyCancellable>)
+```
