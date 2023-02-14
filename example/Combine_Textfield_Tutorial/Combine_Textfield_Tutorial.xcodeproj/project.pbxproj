@@ -13,6 +13,7 @@
 		B56FE1BD299B1E5000AD5A5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B56FE1BB299B1E5000AD5A5F /* Main.storyboard */; };
 		B56FE1BF299B1E5000AD5A5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B56FE1BE299B1E5000AD5A5F /* Assets.xcassets */; };
 		B56FE1C2299B1E5000AD5A5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B56FE1C0299B1E5000AD5A5F /* LaunchScreen.storyboard */; };
+		B56FE1CA299B1FEF00AD5A5F /* MyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56FE1C9299B1FEF00AD5A5F /* MyViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B56FE1BE299B1E5000AD5A5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B56FE1C1299B1E5000AD5A5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B56FE1C3299B1E5000AD5A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B56FE1C9299B1FEF00AD5A5F /* MyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				B56FE1B5299B1E5000AD5A5F /* AppDelegate.swift */,
 				B56FE1B7299B1E5000AD5A5F /* SceneDelegate.swift */,
 				B56FE1B9299B1E5000AD5A5F /* ViewController.swift */,
+				B56FE1C9299B1FEF00AD5A5F /* MyViewModel.swift */,
 				B56FE1BB299B1E5000AD5A5F /* Main.storyboard */,
 				B56FE1BE299B1E5000AD5A5F /* Assets.xcassets */,
 				B56FE1C0299B1E5000AD5A5F /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 			files = (
 				B56FE1BA299B1E5000AD5A5F /* ViewController.swift in Sources */,
 				B56FE1B6299B1E5000AD5A5F /* AppDelegate.swift in Sources */,
+				B56FE1CA299B1FEF00AD5A5F /* MyViewModel.swift in Sources */,
 				B56FE1B8299B1E5000AD5A5F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
