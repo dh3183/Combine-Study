@@ -208,7 +208,7 @@ var myFriend = MyFriend()
 var myFriendSubscription: AnyCancellable = ["영수"].publisher.assign(to: \.name, on: myFriend)
 ```
 
-### Cancellable
+### 🍞 Cancellable
 > A protocol indicating that an activity or action supports cancellation.
 
 ```Swift
@@ -220,7 +220,7 @@ protocol Cancellable
 * cancel()을 호출 시 할당 된 모든 리소스가 해제됨.
 * Timer, Network Access, Disk I/O와 같은 사이드 이펙트 발생을 중지해 부작용을 막아주는 역할을 함
 
-#### cancel()
+### 🍞 cancel()
 ```Swift
 func cancel()
 ```
